@@ -91,7 +91,7 @@ const paintPokemons = (pokemons) => {
     const cards$$ = document.querySelectorAll('.card');
     lazyLoad(cards$$);
 
-    likePokemons();
+    // likePokemons();
 }
 
 
@@ -169,6 +169,34 @@ const paintSearchSuggestions = (pokemons, suggestions, select, input) => {
     }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////
+//AÑADIR POKEMON A FAVORITOS
+
+//cambia estilo de corazón en carta al clicar. Suma 1 al contador de likes del header
+const likePokemons = (cardHearts, heartNum) => {
+
+    cardHearts.forEach(heart => heart.addEventListener('click', (e)=> {
+        heart.classList.toggle('card-front__heart--liked');
+        heart.classList.toggle('animate__swing');
+        
+        if(heart.classList.contains('card-front__heart--liked')) {
+            heartNum.textContent = new Number(heartNum.textContent) + 1;
+        } else {
+            heartNum.textContent = new Number(heartNum.textContent) - 1;
+        }
+        
+        e.stopPropagation();
+    }));
+}
+
+// const favoritePokemons = () => {
+//     let cardHearts$$ = document.querySelectorAll('.card-front__heart');
+//     let headerHeartNum$$ = document.querySelector('.header-heart__num');
+//     console.log(cardHearts$$);
+//     likePokemons(cardHearts$$, headerHeartNum$$);
+//     favoritesBar();
+// }
+
 
 const init = async () => {
     //pillar primeros 150 pokemons
@@ -185,47 +213,19 @@ const init = async () => {
     
     searchInput$$.addEventListener('input', () => filterPokemons(pokemons, searchSelect$$, searchInput$$));
     searchInput$$.addEventListener('input', () => getSearchSuggestions(pokemons, searchSelect$$, searchInput$$));
+
+    //favorites functionality
+    let cardHearts$$ = document.querySelectorAll('.card-front__heart');
+    let headerHeartNum$$ = document.querySelector('.header-heart__num');
+    likePokemons(cardHearts$$, headerHeartNum$$);
     
 }
 
 init();
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//AÑADIR POKEMON A FAVORITOS
 
-//cambia estilo de corazón en carta al clicar. Suma 1 al contador de likes del header
-const likePokemons = (cardHearts, heartNum) => {
-    ;
 
-    cardHearts$$.forEach(heart => heart.addEventListener('click', (e)=> {
-        heart.classList.toggle('card-front__heart--liked');
-        heart.classList.toggle('animate__swing');
-        console.log(headerHeartNum$$);
-        
-        if(heart.classList.contains('card-front__heart--liked')) {
-            console.log('ola')
-            headerHeartNum$$.textContent = new Number(headerHeartNum$$.textContent) + 1;
-        } else {
-            headerHeartNum$$.textContent = new Number(headerHeartNum$$.textContent) - 1;
-        }
-        
-        e.stopPropagation();
-    }));
-}
 
-const favoritesBar = () => {
-
-}
-
-const favoritePokemons = () => {
-    let cardHearts$$ = document.querySelectorAll('.card-front__heart');
-    let headerHeartNum$$ = document.querySelector('.header-heart__num');
-
-    likePokemons(cardHearts$$, headerHeartNum$$);
-    favoritesBar();
-}
-
-favoritePokemons();
 
 
 
