@@ -371,4 +371,21 @@ h2 {
 }
 .header-heart__icon {
   width: 40px;
+}
+
+.favorites {
+  height: 100vh;
+  width: 300px;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  border-left: 4px solid #34312b;
+  padding: 2rem;
+  display: none;
+}
+.favorites__close {
+  cursor: pointer;
+  font-weight: bold;
 }/*# sourceMappingURL=pokeapi.css.map */

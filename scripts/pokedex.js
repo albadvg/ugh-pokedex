@@ -194,9 +194,8 @@ init();
 //AÑADIR POKEMON A FAVORITOS
 
 //cambia estilo de corazón en carta al clicar. Suma 1 al contador de likes del header
-const likePokemons = () => {
-    let cardHearts$$ = document.querySelectorAll('.card-front__heart');
-    let headerHeartNum$$ = document.querySelector('.header-heart__num');
+const likePokemons = (cardHearts, heartNum) => {
+    ;
 
     cardHearts$$.forEach(heart => heart.addEventListener('click', (e)=> {
         heart.classList.toggle('card-front__heart--liked');
@@ -213,6 +212,20 @@ const likePokemons = () => {
         e.stopPropagation();
     }));
 }
+
+const favoritesBar = () => {
+
+}
+
+const favoritePokemons = () => {
+    let cardHearts$$ = document.querySelectorAll('.card-front__heart');
+    let headerHeartNum$$ = document.querySelector('.header-heart__num');
+
+    likePokemons(cardHearts$$, headerHeartNum$$);
+    favoritesBar();
+}
+
+favoritePokemons();
 
 
 

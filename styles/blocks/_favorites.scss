@@ -1,17 +1,19 @@
-// .favorites {
-//     height: 100vh;
-//     width: 300px;
-//     background-color: white;
-//     position: fixed;
-//     top: 0;
-//     right: 0;
-//     z-index: 999;
-//     border-left: 4px solid $darkBrown;
-//     padding: 2rem;
+.favorites {
+    height: 100vh;
+    width: 300px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    border-left: 4px solid $darkBrown;
+    padding: 2rem;
     
 
-//     &__close {
-//         cursor: pointer;
-//         font-weight: bold;
-//     }
-// }
+    &__close {
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    display: none;
+}
