@@ -1,7 +1,6 @@
-export function lazyLoad(cards) {
+export function lazyLoad(card) {
 
     if("IntersectionObserver" in window) {
-        // let lazyElements = document.querySelectorAll('.lazy');
     
         let observer = new IntersectionObserver (
             (entries, observer) => {
@@ -18,9 +17,9 @@ export function lazyLoad(cards) {
             }       
         );
         
-        cards.forEach(card =>  
-            observer.observe(card)
-        );
+        
+        observer.observe(card)
+        
     }
 }
 
