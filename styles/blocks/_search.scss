@@ -1,0 +1,75 @@
+.search {
+    margin: 0 auto;
+    max-width: 800px;
+    @include flex(center, center, 1rem);
+    margin-bottom: 3rem;
+
+    &-select-wrapper {
+        position: relative;
+        width: 30%;
+    }
+
+    &-input-wrapper {
+        position: relative;
+        width: 70%;
+    }
+
+    &-select,
+    &__input {
+        padding: .8rem;
+        border-radius: 5px;
+        font-family: $courier;
+        font-weight: bold;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        line-height: 1;
+    }
+
+    &-select {
+        width: 100%;
+        background: $darkBrown;
+        border: 2px solid $darkBrown;
+        color: white; 
+        cursor: pointer;
+
+        &__option {
+            width: 100%;
+        }
+
+        
+    }
+
+    &__arrow {
+        font-weight: bold;
+        height: 1rem;
+        width: 1rem;
+        position: absolute;
+        top: calc(50% - .5rem);
+        right: .8rem;
+        color: white;
+
+        &.rotate {
+            transform: rotate(90deg);
+        }
+    }
+
+    &__input {
+        width: 100%;
+        border: 2px solid $darkBrown;
+    }
+
+    &-suggestions {
+        position: absolute;
+        background-color: white;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: scroll;
+        opacity: .8;
+        z-index: 999;
+
+
+        &__item {
+            padding: .8rem;
+        }
+    }
+}

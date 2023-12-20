@@ -1,0 +1,25 @@
+body {
+    font-family: $pixelSm;
+    font-size: 16px;
+    background-color: $cream;
+    color: $darkBrown;
+    position: relative;
+}
+
+.container {
+    padding: 40px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: $pixelBig;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+h2 {
+    font-family: $pixelSm;
+}

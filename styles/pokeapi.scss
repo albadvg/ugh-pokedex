@@ -1,0 +1,18 @@
+@import 'utilities/colors';
+@import 'utilities/mixins';
+@import 'utilities/animations';
+@import 'utilities/fonts';
+@import 'utilities/lazyLoad';
+
+@import 'base/reset';
+@import 'base/default';
+
+@import 'blocks/loader';
+@import 'blocks/pokedex';
+@import 'blocks/card';
+@import 'blocks/search';
+@import 'blocks/header';
+@import 'blocks/favorites';
+
+
+

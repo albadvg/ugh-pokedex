@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    
+    <title>Pokedex</title>
+
+    <script src="scripts/pokedex.js" defer type="module"></script>
+    <script src="scripts/animations.js" defer></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet"> 
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="styles/pokeapi.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>
+                <span>P</span>
+                <span>O</span>
+                <span>K</span>
+                <span>E</span>
+                <span>D</span>
+                <span>E</span>
+                <span>X</span>
+            </h1>
+            <div class="header-heart">
+                <img src="./assets/img/heart-pixel.png" alt="" class="header-heart__icon">
+                <span class="header-heart__num">0</span>
+            </div>
+            
+
+            <div class="search">
+                <div class="search-select-wrapper">
+                    <select class="search-select">      
+                        <option value="name" class="search-select__option">Nombre</option>
+                        <option value="type" class="search-select__option">Tipo</option>
+                        <option value="experience" class="search-select__option">Experiencia</option>
+                        <option value="species" class="search-select__option">Especie</option>
+                        <option value="moves" class="search-select__option">Movimientos</option>
+                    </select>
+                    <i class="search__arrow">></i>
+                </div>
+                
+                <div class="search-input-wrapper">
+                    <input type="text" class="search__input">
+                    <ul class="search-suggestions"></ul>
+                </div>           
+            </div>
+    
+        </header>
+        
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+        <div id="pokedex"></div>
+
+        <div class="favorites">
+            <i class="fi fi-ss-cross favorites__close"></i>
+        </div>
+    </div>
+    
+</body>
+
+</html>
