@@ -1,8 +1,10 @@
-import {lazyLoad} from './lazyLoad.mjs';
+import {lazyLoad} from './lazyLoad.js';
+
 
 //ÍNDICE
 //1 - FETCH, PINTAR Y FILTRAR POKEMONS
 //2 - AÑADIR POKEMONS A LIKE
+//3 - SACAR FOTOS DE POKEMONS
 
 
 
@@ -214,7 +216,12 @@ const addToFavs = (favoriteName, pokemons) => {
         <img src="${favoritePokemon.image}" alt="${favoritePokemon.name}">
         <h3>${favoritePokemon.name}</h3>
     `
+
+    favoriteLi$$.addEventListener('click', (e) => {putFavPokeInPic(e)});
+
     favorites$$.appendChild(favoriteLi$$);
+
+
 }
 
 
@@ -241,6 +248,71 @@ const favsMenuBehavior = () => {
 }
 
 
+//////////////////////////////////////////////////////////////////////////////
+//FUNCIONALIDAD DE SACAR FOTOS
+const picsModalBehavior = () => {
+    const cameraIcon$$ = document.querySelector('.header__cam');
+    const picsModal$$ = document.querySelector('.pics');
+    const closeModalIcon$$ = document.querySelector('.pics__close');
+
+    cameraIcon$$.addEventListener('click', ()=> picsModal$$.classList.toggle('pics--visible'));
+
+    closeModalIcon$$.addEventListener('click', ()=> picsModal$$.classList.toggle('pics--visible'));
+}
+
+//poner un pokemon favorito en la foto al clicar (solo deja meter uno)
+const putFavPokeInPic = (e) => {
+    const picture$$ = document.querySelector('.pics-pic-image')
+    const favPokeImg$$ = e.target.nodeName === 'IMG' ? e.target : e.target.previousElementSibling ;
+    const pokeInPic$$ = document.createElement('img');
+
+    if(picture$$.childElementCount === 0 ) {
+        pokeInPic$$.classList.add('pics-pic-image__poke');
+        pokeInPic$$.setAttribute('src' , favPokeImg$$.src);
+        picture$$.appendChild(pokeInPic$$);
+    }
+
+    pokeInPic$$.addEventListener('click', (e) => {removeFavPokeFromPic(e)});
+       
+}
+
+//quitar pokemon de la foto al clicar
+const removeFavPokeFromPic = (e) => {
+    e.target.remove();
+}
+
+const takePic = () => {
+    const picButton$$ = document.querySelector('.pics-pic-btn');
+    const picture$$ = document.querySelector('#capture');
+    const galleryList$$ = document.querySelector('.gallery__list');
+
+    picButton$$.addEventListener('click', () => {
+        const myPic$$ = document.createElement('li');
+        myPic$$.classList.add('gallery-list-item' , 'takepic');
+        myPic$$.innerHTML = `
+            <i class="gallery-list-item__delete">X</i>
+            ${picture$$.outerHTML}
+        `
+        galleryList$$.appendChild(myPic$$);
+        const deleteBtn$$ = document.querySelector('.gallery-list-item__delete');
+        deleteBtn$$.addEventListener('click', () => deleteBtn$$.parentElement.remove());
+    })
+}
+
+const galleryBehavior = () => {
+    const headerFrame$$ = document.querySelector('.header__frame');
+    const galleryDiv$$ = document.querySelector('.gallery');
+    const closeGalleryIcon$$ = document.querySelector('.gallery__close');
+
+    headerFrame$$.addEventListener('click', ()=> galleryDiv$$.classList.toggle('gallery--visible'));
+
+    closeGalleryIcon$$.addEventListener('click', ()=> galleryDiv$$.classList.toggle('gallery--visible'));
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+
 const init = async () => {
     //pillar primeros 150 pokemons
     let pokemons = await getPokemons();
@@ -259,9 +331,14 @@ const init = async () => {
     searchInput$$.addEventListener('input', () => filterCards(cardsArray));
     searchInput$$.addEventListener('input', () => getSearchSuggestions(pokemons, cardsArray));
 
-    //favorites functionality
+    //funcionalidad favoritos
     likePokemons(pokemons);
     favsMenuBehavior();
+
+    //funcionalidad sacar fotos
+    picsModalBehavior(); 
+    takePic();
+    galleryBehavior();
 }
 
 
@@ -269,7 +346,6 @@ const init = async () => {
 const rotateSelectArrow = () => {
     const searchSelect$$ = document.querySelector('.search-select');
     const selectArrow$$ = document.querySelector('.search-select__arrow');
-    console.log(searchSelect$$);
     searchSelect$$.onclick = function() {
         selectArrow$$.classList.toggle('rotate');
     }

@@ -8,7 +8,7 @@
     
     <title>Pokedex</title>
 
-    <script src="scripts/pokedex.js" defer type="module"></script>
+    <script src="scripts/pokedex.js" type="module" defer></script>
     <script src="scripts/animations.js" defer></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet"> 
@@ -20,6 +20,8 @@
 <body>
     <div class="container">
         <header class="header">
+            <img src="./assets/img/frame.png" alt="" class="header__frame">
+            <img src="./assets/img/camera2.png" alt="" class="header__cam">
             <h1>
                 <span>P</span>
                 <span>O</span>
@@ -57,13 +59,34 @@
         
         <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
+        <div class="pics">
+            <i class="pics__close">X</i>
+            <h3 class="pics__title">Sacale una foto a tu pokemon favorito!</h3>
+            <div class="pics-pic">   
+                <div class="pics-pic-arrows">
+                    <i class="fi fi-ss-left pics-pic-arrows__arrow"></i>
+                    <i class="fi fi-ss-right pics-pic-arrows__arrow"></i>
+                    
+                </div>
+                <div class="pics-pic-image" id="capture"></div>
+                <div class="pics-pic-btn"></div>
+            </div>
+        </div>
+
         <div id="pokedex"></div>
+
+        <div class="gallery">
+            <i class="gallery__close">X</i>
+            <h3 class="gallery__title">GALERIA</h3>
+            <ul class="gallery__list"></ul>
+        </div>
 
         <div class="favorites">
             <i class="favorites__close">X</i>
             <h3 class="favorites__title">FAVORITOS</h3>
             <ul class="favorites-list"></ul>
         </div>
+
     </div>
     
 </body>

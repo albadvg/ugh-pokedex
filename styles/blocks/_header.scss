@@ -1,6 +1,16 @@
 .header {
     position: relative;
 
+    &__frame {
+        width: 35px;
+        margin-right: 1rem;
+        cursor: pointer;
+    }
+
+    &__cam {
+        width: 50px;
+        cursor: pointer;
+    }
     &-heart {
         position:absolute;
         top: 0;
