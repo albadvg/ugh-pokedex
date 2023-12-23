@@ -42,7 +42,6 @@ const mapPokemons = (pokemonSinMapear) => {
         types: poke.types.map(type => type.type.name),
         experience : poke.base_experience,
         abilities : poke.abilities.map(ab => ab.ability.name),
-        species : poke.species.name,
         moves: poke.moves.map(move=> move.move.name)
     }))
 }
@@ -68,7 +67,6 @@ const createCards = (pokemons) => {
                     <li class="card-back-txt__item name">Nombre: ${pokemon.name}</li>
                     <li class="card-back-txt__item types">Tipos: ${pokemon.types.join(', ')}</li>
                     <li class="card-back-txt__item experience">Experiencia: ${pokemon.experience}</li>
-                    <li class="card-back-txt__item species">Especie: ${pokemon.species}</li>
                     <li class="card-back-txt__item abilities">Habilidades: <br><br>&nbsp;&nbsp;&#10033;${pokemon.abilities.join('<br><br>&nbsp;&nbsp;&#10033;')}</li>         
                 </ul>
 
@@ -112,7 +110,6 @@ const filterCards = (cards) => {
 
     const filteredCards = cards.filter(card => {
         const cardUl$$ = Array.from(card.children[1].children[0].children);
-        console.log(cardUl$$);
         const liToCheck = cardUl$$.find(li => li.classList.contains(`${searchFilter}`))
         
         return liToCheck.textContent.includes(searchTerm);   
@@ -180,7 +177,7 @@ const paintSearchSuggestions = (cards, searchSuggestions, filter, term) => {
 }
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 //AÑADIR POKEMONS A FAVORITOS
 
 //cambia estilo de corazón en carta al clicar. Suma 1 al contador de likes del header
@@ -283,19 +280,29 @@ const removeFavPokeFromPic = (e) => {
 
 const takePic = () => {
     const picButton$$ = document.querySelector('.pics-pic-btn');
-    const picture$$ = document.querySelector('#capture');
+    const picture$$ = document.querySelector('.pics-pic-image');
     const galleryList$$ = document.querySelector('.gallery__list');
+    const flash$$ = document.querySelector('.pics__flash');
 
     picButton$$.addEventListener('click', () => {
         const myPic$$ = document.createElement('li');
-        myPic$$.classList.add('gallery-list-item' , 'takepic');
+        myPic$$.classList.add('gallery-list-item');
         myPic$$.innerHTML = `
             <i class="gallery-list-item__delete">X</i>
             ${picture$$.outerHTML}
         `
+        myPic$$.children[1].style.height = '100%';
         galleryList$$.appendChild(myPic$$);
-        const deleteBtn$$ = document.querySelector('.gallery-list-item__delete');
-        deleteBtn$$.addEventListener('click', () => deleteBtn$$.parentElement.remove());
+
+        //boton borrar foto de la galería
+        const deleteBtn$$ = myPic$$.querySelector('.gallery-list-item__delete');
+        deleteBtn$$.addEventListener('click', (e) => e.target.parentElement.remove());
+
+        //animation flash al clicar
+        flash$$.classList.add('pics__flash--flashing');
+        setTimeout(() => {
+            flash$$.classList.remove('pics__flash--flashing');
+        }, 300)
     })
 }
 
@@ -303,10 +310,37 @@ const galleryBehavior = () => {
     const headerFrame$$ = document.querySelector('.header__frame');
     const galleryDiv$$ = document.querySelector('.gallery');
     const closeGalleryIcon$$ = document.querySelector('.gallery__close');
-
+    
+    
     headerFrame$$.addEventListener('click', ()=> galleryDiv$$.classList.toggle('gallery--visible'));
 
     closeGalleryIcon$$.addEventListener('click', ()=> galleryDiv$$.classList.toggle('gallery--visible'));
+}
+
+const changePicBgd = () => {
+    const arrowLeft$$ = document.querySelector('.pics-pic-arrows').children[0];
+    const arrowRight$$ = document.querySelector('.pics-pic-arrows').children[1];
+    const picture$$ = document.querySelector('.pics-pic-image');
+
+    const picBgds = [
+        './assets/img/bgd-1.png',
+        './assets/img/bgd-2.jpg',
+        './assets/img/bgd-3.JPEG',
+        './assets/img/bgd-4.jpg',
+        './assets/img/bgd-5.jpg'
+    ]
+    let i = 0;
+
+    arrowRight$$.addEventListener('click', () => {
+        picBgds[i+1] ? i++ : i = 0;
+        picture$$.style.backgroundImage = `url('${picBgds[i]}')`;    
+    })
+
+    arrowLeft$$.addEventListener('click', () => {
+        picBgds[i-1] ? i-- : i = picBgds.length - 1;
+        picture$$.style.backgroundImage = `url('${picBgds[i]}')`;    
+    })
+
 
 }
 
@@ -337,11 +371,13 @@ const init = async () => {
 
     //funcionalidad sacar fotos
     picsModalBehavior(); 
+    changePicBgd();
     takePic();
     galleryBehavior();
 }
 
-
+///////////////////////////////////////
+//EXTRAS? TODAVÍA SIN CATEGORÍA
 //girar la flecha del select al clicar
 const rotateSelectArrow = () => {
     const searchSelect$$ = document.querySelector('.search-select');

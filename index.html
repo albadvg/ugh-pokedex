@@ -20,8 +20,19 @@
 <body>
     <div class="container">
         <header class="header">
-            <img src="./assets/img/frame.png" alt="" class="header__frame">
-            <img src="./assets/img/camera2.png" alt="" class="header__cam">
+            <div class="header-iconswrap">
+                <div class="header-iconswrap-left">
+                    <img src="./assets/img/gallery.png" alt="" class="header__frame">
+                    <img src="./assets/img/camera-1.png" alt="" class="header__cam">
+                </div>
+                
+                <div class="header-heart">
+                    <img src="./assets/img/heart-pixel.png" alt="" class="header-heart__icon">
+                    <span class="header-heart__num">0</span>
+                </div>
+            </div>
+            
+
             <h1>
                 <span>P</span>
                 <span>O</span>
@@ -31,10 +42,7 @@
                 <span>E</span>
                 <span>X</span>
             </h1>
-            <div class="header-heart">
-                <img src="./assets/img/heart-pixel.png" alt="" class="header-heart__icon">
-                <span class="header-heart__num">0</span>
-            </div>
+            
             
 
             <div class="search">
@@ -43,7 +51,6 @@
                         <option value="name" class="search-select__option">Nombre</option>
                         <option value="types" class="search-select__option">Tipo</option>
                         <option value="experience" class="search-select__option">Experiencia</option>
-                        <option value="species" class="search-select__option">Especie</option>
                         <option value="abilities" class="search-select__option">Habilidades</option>
                     </select>
                     <i class="fi fi-ss-angle-small-right search-select__arrow"></i>
@@ -64,13 +71,15 @@
             <h3 class="pics__title">Sacale una foto a tu pokemon favorito!</h3>
             <div class="pics-pic">   
                 <div class="pics-pic-arrows">
-                    <i class="fi fi-ss-left pics-pic-arrows__arrow"></i>
-                    <i class="fi fi-ss-right pics-pic-arrows__arrow"></i>
+                    <img class="pics-pic-arrows__arrow" src="./assets/img/arrow-left.png">
+                    <img class="pics-pic-arrows__arrow" src="./assets/img/arrow-right.png">
                     
                 </div>
-                <div class="pics-pic-image" id="capture"></div>
+                <div class="pics-pic-image"></div>
                 <div class="pics-pic-btn"></div>
             </div>
+            <div class="pics__flash"></div>
+
         </div>
 
         <div id="pokedex"></div>

@@ -58,29 +58,48 @@
             background-size: cover;
             position: relative;
             overflow: hidden;
+            border: 3px solid $darkBrown;
 
             &__poke {
                 cursor: pointer;
                 position: absolute;
-                bottom: -10%;
+                top: 50%;
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translate(-50% , -50%);
                 width: 70%;
             }
         }
 
         &-btn {
-            height: 4rem;
-            width: 4rem;
+            height: 3rem;
+            width: 3rem;
             border: 2px solid black;
             border-radius: 50%;
             cursor: pointer;
             background-color: #dfdfdf;
         }
+
+        
+    }
+
+    &__flash {
+        position: absolute;
+        top: 0;
+        &--flashing {
+            animation: camFlash .2s ease 1;
+            height: 100%;
+            width: 100%;
+        }    
     }
 }
 
 @keyframes openModal {
     0% {width: 0px; height: 0px; opacity: 0;}
     100% {width: 700px; height: 600px; opacity: 1;}
+}
+
+@keyframes camFlash {
+    0% {background-image: radial-gradient(rgb(255, 255, 255) 0% , rgba(255, 255, 255, 0) 10%);}
+    50% {background-image: radial-gradient(white 50% , rgba(255, 255, 255, 0) 100%);}
+    100% {background-image: radial-gradient(rgba(255, 255, 255, 0) 0% , rgba(255, 255, 255, 0) 10%);}
 }

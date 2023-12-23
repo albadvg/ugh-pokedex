@@ -368,25 +368,36 @@ h2 {
 .header {
   position: relative;
 }
+.header-iconswrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.header-iconswrap img {
+  width: 40px;
+  cursor: pointer;
+}
+.header-iconswrap-left {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
 .header__frame {
   width: 35px;
   margin-right: 1rem;
-  cursor: pointer;
 }
 .header__cam {
-  width: 50px;
   cursor: pointer;
 }
 .header-heart {
-  position: absolute;
-  top: 0;
-  right: 0;
   cursor: pointer;
 }
-.header-heart__icon {
-  width: 40px;
-}
-
 .favorites {
   height: 100vh;
   overflow-y: scroll;
@@ -491,22 +502,32 @@ h2 {
   background-size: cover;
   position: relative;
   overflow: hidden;
+  border: 3px solid #34312b;
 }
 .pics-pic-image__poke {
   cursor: pointer;
   position: absolute;
-  bottom: -10%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: 70%;
 }
 .pics-pic-btn {
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   border: 2px solid black;
   border-radius: 50%;
   cursor: pointer;
   background-color: #dfdfdf;
+}
+.pics__flash {
+  position: absolute;
+  top: 0;
+}
+.pics__flash--flashing {
+  animation: camFlash 0.2s ease 1;
+  height: 100%;
+  width: 100%;
 }
 
 @keyframes openModal {
@@ -519,6 +540,17 @@ h2 {
     width: 700px;
     height: 600px;
     opacity: 1;
+  }
+}
+@keyframes camFlash {
+  0% {
+    background-image: radial-gradient(rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 10%);
+  }
+  50% {
+    background-image: radial-gradient(white 50%, rgba(255, 255, 255, 0) 100%);
+  }
+  100% {
+    background-image: radial-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 10%);
   }
 }
 .gallery {
@@ -567,7 +599,7 @@ h2 {
   cursor: pointer;
   position: absolute;
   z-index: 2;
-  top: 43%;
+  top: 48%;
   left: -20px;
 }
 .gallery--visible {

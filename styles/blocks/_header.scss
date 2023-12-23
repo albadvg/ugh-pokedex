@@ -1,24 +1,32 @@
 .header {
     position: relative;
 
+    &-iconswrap {
+        @include flex(space-between, center);
+
+        img {
+            width: 40px;
+            cursor: pointer;
+        }
+
+        &-left {
+            @include flex(center, baseline, 1rem);
+        }
+    }
+
     &__frame {
         width: 35px;
         margin-right: 1rem;
-        cursor: pointer;
     }
 
     &__cam {
-        width: 50px;
         cursor: pointer;
     }
     &-heart {
-        position:absolute;
-        top: 0;
-        right: 0;
         cursor: pointer;
 
         &__icon {
-            width: 40px;
+            // width: 40px;
             
         }
 
