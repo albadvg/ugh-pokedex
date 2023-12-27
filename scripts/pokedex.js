@@ -10,8 +10,6 @@ import {lazyLoad} from './lazyLoad.js';
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //FETCH, PINTAR Y FILTRAR POKEMONS
-const pokedex$$ = document.querySelector('#pokedex');
-const loader$$ = document.querySelector('.lds-roller');
 
 //recibir los pokemons de la api
 const getPokemons = async () => {
@@ -104,45 +102,62 @@ const appendCards = (cards) => {
 
 //filtra los pokemons que se pintan en función de los criterios de búsqueda
 //se llama desde un event listener en el input, declarado en la función init();
-const filterCards = (cards) => {
-    let searchFilter = document.querySelector('.search-select').value;
-    let searchTerm = document.querySelector('.search__input').value;
+const filterCards = (cards, select, input) => {
+    
+    let searchFilter = select.value;
+    let searchTerm = input.value.toLowerCase();
 
+    //filtra las cartas
+    //filtrar el array de divs de cartas en lugar del array de pokemons
+    //permite conservar los likes
     const filteredCards = cards.filter(card => {
+        //coge <ul> de características del pokemon
         const cardUl$$ = Array.from(card.children[1].children[0].children);
+        //selecciona el correspondiente al criterio de búsqueda
         const liToCheck = cardUl$$.find(li => li.classList.contains(`${searchFilter}`))
-        
+        //chequea si contiene el término de búsqueda
         return liToCheck.textContent.includes(searchTerm);   
     })
-  
+
     //mete al html las cards filtradas
-    appendCards(filteredCards);
+    appendCards(filteredCards);  
 }
 
 
 //recorre los pokemons buscando coincidencias en el texto de la propiedad que se está buscando para generar un array de sugerencias de búsqueda
 //se llama desde un event listener en el input, declarado en la función init()
-const getSearchSuggestions = (pokemons, cards) => {
-    const searchSelect$$ = document.querySelector('.search-select');
-    let searchFilter = searchSelect$$.value;
-    let searchTerm = document.querySelector('.search__input').value;
+const getSearchSuggestions = (pokemons, cards, select, input) => {
 
+     
+    let searchFilter = select.value;
+    let searchTerm = input.value.toLowerCase();
     let searchSuggestions = pokemons.filter(pokemon => {
 
         if(typeof pokemon[searchFilter] === 'number') {
             return pokemon[searchFilter].toString().startsWith(searchTerm); 
         }  else if (typeof pokemon[searchFilter] === 'string'){
-            return pokemon[searchFilter].startsWith(searchTerm.toLowerCase());
+            return pokemon[searchFilter].startsWith(searchTerm);
         } else {
-            return pokemon[searchFilter].some(elem => elem.startsWith(searchTerm.toLowerCase()))
+            return pokemon[searchFilter].some(elem => elem.startsWith(searchTerm))
         }
     })
+
+    //hacer lista de sugerencias sin elementos repetidos
+    const suggestionsList = []
+    searchSuggestions.forEach(sugg => {
+        let match;
+        Array.isArray(sugg[searchFilter]) 
+                ? match = sugg[searchFilter].find(elem => elem.startsWith(searchTerm)) //si la propiedad es array, devolver elemento que coincide
+                : match = sugg[searchFilter]; //sinó devolver todo el valor
+
+        if(!suggestionsList.includes(match)) suggestionsList.push(match);
+    })
+    paintSearchSuggestions(cards, suggestionsList, select, searchTerm, input);
     
-    paintSearchSuggestions(cards, searchSuggestions, searchFilter, searchTerm);
 }
 
 
-const paintSearchSuggestions = (cards, searchSuggestions, filter, term) => {
+const paintSearchSuggestions = (cards, suggestionsList, select, term, input) => {
     //ul donde irán las sugerencias
     const searchSuggestions$$ = document.querySelector('.search-suggestions');
 
@@ -151,24 +166,18 @@ const paintSearchSuggestions = (cards, searchSuggestions, filter, term) => {
     } else  { 
         searchSuggestions$$.innerHTML = '';
 
-        searchSuggestions.forEach(sugg => {
+        suggestionsList.forEach(sugg => {
 
             const suggLi$$ = document.createElement('li');
             suggLi$$.classList.add('search-suggestions__item');
+            suggLi$$.textContent = sugg;
 
-            if(Array.isArray(sugg[filter])) { //si la propiedad es array, devolver elemento que coincide
-                suggLi$$.textContent = sugg[filter].find(elem => elem.startsWith(term));
-            } else {
-                suggLi$$.textContent = sugg[filter];
-            }
-  
+            //mete en el input la sugerencia clicada
             suggLi$$.addEventListener('click', (e) => {
-                const searchSuggestions$$ = document.querySelector('.search-suggestions');
-                const searchInput$$ = document.querySelector('.search__input');
-                searchInput$$.value = e.target.textContent;
+                input.value = e.target.textContent;
                 searchSuggestions$$.innerHTML = '';
 
-                filterCards(cards);
+                filterCards(cards, select, input);
             });
 
             searchSuggestions$$.appendChild(suggLi$$);
@@ -217,14 +226,12 @@ const addToFavs = (favoriteName, pokemons) => {
     favoriteLi$$.addEventListener('click', (e) => {putFavPokeInPic(e)});
 
     favorites$$.appendChild(favoriteLi$$);
-
-
 }
 
 
 const removeFromFavs = (notFavoriteAnymore) => {
     const favoritesLis$$ = document.querySelector('.favorites-list').children;
-    console.log(favoritesLis$$, notFavoriteAnymore);
+
     for(const li of favoritesLis$$) {
         if(li.querySelector('h3').textContent === notFavoriteAnymore) {
             li.remove();
@@ -257,6 +264,7 @@ const picsModalBehavior = () => {
     closeModalIcon$$.addEventListener('click', ()=> picsModal$$.classList.toggle('pics--visible'));
 }
 
+
 //poner un pokemon favorito en la foto al clicar (solo deja meter uno)
 const putFavPokeInPic = (e) => {
     const picture$$ = document.querySelector('.pics-pic-image')
@@ -273,10 +281,12 @@ const putFavPokeInPic = (e) => {
        
 }
 
+
 //quitar pokemon de la foto al clicar
 const removeFavPokeFromPic = (e) => {
     e.target.remove();
 }
+
 
 const takePic = () => {
     const picButton$$ = document.querySelector('.pics-pic-btn');
@@ -306,6 +316,7 @@ const takePic = () => {
     })
 }
 
+
 const galleryBehavior = () => {
     const headerFrame$$ = document.querySelector('.header__frame');
     const galleryDiv$$ = document.querySelector('.gallery');
@@ -317,6 +328,7 @@ const galleryBehavior = () => {
     closeGalleryIcon$$.addEventListener('click', ()=> galleryDiv$$.classList.toggle('gallery--visible'));
 }
 
+
 const changePicBgd = () => {
     const arrowLeft$$ = document.querySelector('.pics-pic-arrows').children[0];
     const arrowRight$$ = document.querySelector('.pics-pic-arrows').children[1];
@@ -327,10 +339,11 @@ const changePicBgd = () => {
         './assets/img/bgd-2.jpg',
         './assets/img/bgd-3.JPEG',
         './assets/img/bgd-4.jpg',
-        './assets/img/bgd-5.jpg'
+        './assets/img/bgd-5.jpg',
+        './assets/img/bgd-6.WEBP'
     ]
-    let i = 0;
 
+    let i = 0;
     arrowRight$$.addEventListener('click', () => {
         picBgds[i+1] ? i++ : i = 0;
         picture$$.style.backgroundImage = `url('${picBgds[i]}')`;    
@@ -351,6 +364,7 @@ const init = async () => {
     //pillar primeros 150 pokemons
     let pokemons = await getPokemons();
     //quitar la animación de cargar cuando se cargue el fetch
+    const loader$$ = document.querySelector('.lds-roller');
     loader$$.classList.add('hidden');
 
     //crear cartas en html pokemons
@@ -360,11 +374,13 @@ const init = async () => {
     appendCards(cardsArray);
 
     //filtrar pokemons en base a términos de búsqueda
+    let searchSelect$$ = document.querySelector('.search-select');
     let searchInput$$ = document.querySelector('.search__input');
-    
-    searchInput$$.addEventListener('input', () => filterCards(cardsArray));
-    searchInput$$.addEventListener('input', () => getSearchSuggestions(pokemons, cardsArray));
 
+    searchInput$$.addEventListener('input', () => filterCards(cardsArray, searchSelect$$, searchInput$$));
+    searchInput$$.addEventListener('input', () => getSearchSuggestions(pokemons, cardsArray, searchSelect$$, searchInput$$));
+
+    
     //funcionalidad favoritos
     likePokemons(pokemons);
     favsMenuBehavior();
@@ -375,18 +391,6 @@ const init = async () => {
     takePic();
     galleryBehavior();
 }
-
-///////////////////////////////////////
-//EXTRAS? TODAVÍA SIN CATEGORÍA
-//girar la flecha del select al clicar
-const rotateSelectArrow = () => {
-    const searchSelect$$ = document.querySelector('.search-select');
-    const selectArrow$$ = document.querySelector('.search-select__arrow');
-    searchSelect$$.onclick = function() {
-        selectArrow$$.classList.toggle('rotate');
-    }
-}
-rotateSelectArrow()
 
 init();
 

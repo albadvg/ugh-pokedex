@@ -12,5 +12,15 @@ function animateTitle() {
 
 animateTitle();
 
+//girar la flecha del select al clicar
+const rotateSelectArrow = () => {
+    const searchSelect$$ = document.querySelector('.search-select');
+    const selectArrow$$ = document.querySelector('.search-select__arrow');
+    searchSelect$$.onclick = function() {
+        selectArrow$$.classList.toggle('rotate');
+    }
+}
+rotateSelectArrow()
+
 
 

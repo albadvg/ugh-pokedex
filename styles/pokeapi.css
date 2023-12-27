@@ -238,7 +238,6 @@ h2 {
   gap: 0;
   flex-direction: column;
   flex-wrap: nowrap;
-  transform-style: preserve-3d;
   backface-visibility: hidden;
   transition: transform 0.3s ease;
   box-shadow: 0px 0px 10px #b3a27a;
