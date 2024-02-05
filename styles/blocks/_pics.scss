@@ -44,8 +44,8 @@
     }
 
     &-pic {
-        height: clamp(0px, 80%, 400px);
-        width: clamp(0px, 50%, 300px);
+        height: 400px;
+        width: 280px;
         padding: 1rem;
         position: relative;
         border: 2px solid black;
@@ -106,9 +106,20 @@
     }
 }
 
+@media screen and (max-width: 900px){
+    .pics--visible {
+        animation: openModalMobile .5s ease forwards;
+    }
+}
+
 @keyframes openModal {
     0% {width: 0px; height: 0px; opacity: 0;}
     100% {width: 700px; height: 600px; opacity: 1;}
+}
+
+@keyframes openModalMobile {
+    0% {width: 0px; height: 0px; opacity: 0;}
+    100% {width: 90%; height: 85%; opacity: 1;}
 }
 
 @keyframes camFlash {

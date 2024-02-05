@@ -95,12 +95,6 @@ body {
 
 h1 {
   font-family: "Pixelmania";
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 4rem;
-  margin-bottom: 3rem;
-  margin-top: 1rem;
-  line-height: 1.6;
 }
 
 h2 {
@@ -372,6 +366,14 @@ h2 {
   cursor: pointer;
 }
 
+@media screen and (max-width: 500px) {
+  .search {
+    flex-direction: column;
+  }
+  .search-select-wrapper, .search-input-wrapper {
+    width: 100%;
+  }
+}
 .header {
   position: relative;
 }
@@ -382,6 +384,13 @@ h2 {
   gap: 0;
   flex-direction: row;
   flex-wrap: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  z-index: 999;
+  background-color: #f3eedf;
 }
 .header-iconswrap img {
   width: 40px;
@@ -404,6 +413,21 @@ h2 {
 }
 .header-heart {
   cursor: pointer;
+}
+.header__title {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 3rem;
+  margin-top: 4rem;
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 900px) {
+  .header__title {
+    font-size: 2.3rem;
+    margin-top: 2.5rem;
+  }
 }
 .favorites {
   height: 100vh;
@@ -499,8 +523,8 @@ h2 {
   cursor: pointer;
 }
 .pics-pic {
-  height: clamp(0px, 80%, 400px);
-  width: clamp(0px, 50%, 300px);
+  height: 400px;
+  width: 280px;
   padding: 1rem;
   position: relative;
   border: 2px solid black;
@@ -557,6 +581,11 @@ h2 {
   width: 100%;
 }
 
+@media screen and (max-width: 900px) {
+  .pics--visible {
+    animation: openModalMobile 0.5s ease forwards;
+  }
+}
 @keyframes openModal {
   0% {
     width: 0px;
@@ -566,6 +595,18 @@ h2 {
   100% {
     width: 700px;
     height: 600px;
+    opacity: 1;
+  }
+}
+@keyframes openModalMobile {
+  0% {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+  }
+  100% {
+    width: 90%;
+    height: 85%;
     opacity: 1;
   }
 }
