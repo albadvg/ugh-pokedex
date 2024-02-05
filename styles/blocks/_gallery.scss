@@ -60,3 +60,15 @@
         left: 0;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .gallery {
+        left: -100%;
+        width: 100%;
+
+        &--visible {
+            left: 0;
+
+        }
+    }
+}

@@ -477,6 +477,15 @@ h2 {
   right: 0;
 }
 
+@media screen and (max-width: 500px) {
+  .favorites {
+    right: -100%;
+    width: 100%;
+  }
+  .favorites--visible {
+    right: 0;
+  }
+}
 .pics {
   visibility: hidden;
   width: 0px;
@@ -672,4 +681,14 @@ h2 {
 }
 .gallery--visible {
   left: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .gallery {
+    left: -100%;
+    width: 100%;
+  }
+  .gallery--visible {
+    left: 0;
+  }
 }/*# sourceMappingURL=pokeapi.css.map */
