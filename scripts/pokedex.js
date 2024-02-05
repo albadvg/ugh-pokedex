@@ -303,13 +303,11 @@ const picsModalBehavior = () => {
 const putFavPokeInPic = (e) => {
     const picture$$ = document.querySelector('.pics-pic-image')
     const favPokeImg$$ = e.target.nodeName === 'IMG' ? e.target : e.target.previousElementSibling ;
-    const pokeInPic$$ = document.createElement('img');
+    const pokeInPic$$ = document.querySelector('.pics-pic-image__poke');
+    console.log(favPokeImg$$.src, 'src');
 
-    if(picture$$.childElementCount === 0 ) {
-        pokeInPic$$.classList.add('pics-pic-image__poke');
         pokeInPic$$.setAttribute('src' , favPokeImg$$.src);
         picture$$.appendChild(pokeInPic$$);
-    }
 
     pokeInPic$$.addEventListener('click', (e) => {removeFavPokeFromPic(e)});
        
