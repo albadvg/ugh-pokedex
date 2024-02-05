@@ -13,36 +13,51 @@ import {lazyLoad} from './lazyLoad.js';
 
 //recibir los pokemons de la api
 const getPokemons = async () => {
-    const pokemons = [];
+    let pokemons = [];
 
-    for(let i = 1; i <= 150 ; i++) {
-        try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
-            let pokemon = await response.json();
-            pokemons.push(pokemon);
-        } catch (error) {
-            console.log(error);
-        } 
-    }
-
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=150&offset=150`);
+        let pokemon = await response.json();
+        pokemons = pokemon.results;
+    } catch (error) {
+        console.log(error);
+    } 
+    
     //llamada a la función que reduce cada objeto con los datos que vamos a usar
     return  mapPokemons(pokemons); 
 }
 
+const mapPokemons = async (pokemons) => {
+    const pokemonsArr = [];
 
-//mapea cada pokemon del array recibido para obtener un array de objetos nuevo solo con las propiedades que . Se llama en la propia función que hace la petición para que devuelva ya los elementos mapeados.
-const mapPokemons = (pokemonSinMapear) => {
-
-    return pokemonSinMapear.map((poke) => ({
-        name : poke.name,
-        image: poke.sprites.front_default,
-        image_back : poke.sprites.back_default,
-        types: poke.types.map(type => type.type.name),
-        experience : poke.base_experience,
-        abilities : poke.abilities.map(ab => ab.ability.name),
-        moves: poke.moves.map(move=> move.move.name)
-    }))
+    for(let i = 0 ; i < pokemons.length ; i++) {
+        const res = await fetch(pokemons[i].url);
+        const pokeObj = await res.json();
+        pokemonsArr.push( {
+            name : pokeObj.name,
+            image: pokeObj.sprites.front_default,
+            image_back : pokeObj.sprites.back_default,
+            types: pokeObj.types.map(type => type.type.name),
+            experience : pokeObj.base_experience,
+            abilities : pokeObj.abilities.map(ab => ab.ability.name),
+            moves: pokeObj.moves.map(move=> move.move.name)
+        });
+    }
+    console.log(pokemonsArr);
+    return pokemonsArr;
 }
+//mapea cada pokemon del array recibido para obtener un array de objetos nuevo solo con las propiedades que . Se llama en la propia función que hace la petición para que devuelva ya los elementos mapeados.
+// const mapPokemons = async (pokemonsSinMapear) => {
+//     const pokemonsMapeados = [];
+//     pokemonSinMapear.forEach(poke => {
+//         const pokeObj = getPokemon(poke);
+//         pokemonsMapeados.push(pokeObj);
+//     })
+
+//     console.log(pokemonsMapeados);
+//     return pokemonsMapeados;
+    
+// }
 
 
 //crea el HTML necesario para pintar cada pokemon
@@ -53,11 +68,11 @@ const createCards = (pokemons) => {
     for (const pokemon of pokemons) {
         const pokemonCard$$ = document.createElement('div');
         pokemonCard$$.classList.add('card', 'lazy');
-        
+
         pokemonCard$$.innerHTML = `
             <div class="card-front">
                 <h2 class="card-front__name">${pokemon.name}</h2>
-                <img src="${pokemon.image}" alt="${pokemon.image}" class="card-front__img">
+                <img src="${pokemon.image}" alt="${pokemon.name}" class="card-front__img">
                 <i class="fi fi-ss-heart card-front__heart animate__animated"></i>
             </div>
             <div class="card-back flip">

@@ -431,6 +431,14 @@ h2 {
 .favorites-list__item {
   margin-bottom: 1rem;
   cursor: pointer;
+  position: relative;
+}
+.favorites-list__item__delete {
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  right: -20px;
 }
 .favorites--visible {
   right: 0;

@@ -30,11 +30,21 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-
+        
         &__item {
             margin-bottom: 1rem;
             cursor: pointer;
+            position: relative;
+
+            &__delete {
+                cursor: pointer;
+                position: absolute;
+                z-index: 2;
+                top: 48%;
+                right: -20px;
+            }
         }
+
     }
 
 
