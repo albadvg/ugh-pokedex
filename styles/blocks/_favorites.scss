@@ -37,6 +37,9 @@
             cursor: pointer;
             position: relative;
 
+            img {
+                width: 150px;
+            }
             &__delete {
                 cursor: pointer;
                 position: absolute;

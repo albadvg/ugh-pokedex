@@ -256,6 +256,7 @@ const addToFavs = (favoriteName, pokemons) => {
 
 const removeFromFavs = (notFavoriteAnymore) => {
     const favoritesLis$$ = document.querySelector('.favorites-list').children;
+    let headerHeartNum$$ = document.querySelector('.header-heart__num');
     let imgSrc;
      
     for(const li of favoritesLis$$) {
@@ -265,6 +266,8 @@ const removeFromFavs = (notFavoriteAnymore) => {
             break;
         }
     }
+
+    headerHeartNum$$.textContent = new Number(headerHeartNum$$.textContent) - 1;
     removeFromCamFavs(imgSrc);
 }
 

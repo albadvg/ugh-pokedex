@@ -467,6 +467,9 @@ h2 {
   cursor: pointer;
   position: relative;
 }
+.favorites-list__item img {
+  width: 150px;
+}
 .favorites-list__item__delete {
   cursor: pointer;
   position: absolute;
