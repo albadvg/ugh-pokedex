@@ -16,7 +16,7 @@ const getPokemons = async () => {
     let pokemons = [];
 
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=100`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=70`);
         let pokemon = await response.json();
         pokemons = pokemon.results;
     } catch (error) {
