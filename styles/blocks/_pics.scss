@@ -31,6 +31,17 @@
         font-size: 2rem;
     }
 
+    &-favs {
+        display: flex;
+        overflow-x: auto;
+        width: 100%;
+        margin: 20px 0;
+
+        &__item {
+            cursor: pointer;
+        }
+    }
+
     &-pic {
         height: clamp(0px, 80%, 400px);
         width: clamp(0px, 50%, 300px);

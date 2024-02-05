@@ -427,6 +427,7 @@ h2 {
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
 }
 .favorites-list__item {
   margin-bottom: 1rem;
@@ -478,6 +479,15 @@ h2 {
 }
 .pics__title {
   font-size: 2rem;
+}
+.pics-favs {
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  margin: 20px 0;
+}
+.pics-favs__item {
+  cursor: pointer;
 }
 .pics-pic {
   height: clamp(0px, 80%, 400px);

@@ -43,22 +43,8 @@ const mapPokemons = async (pokemons) => {
             moves: pokeObj.moves.map(move=> move.move.name)
         });
     }
-    console.log(pokemonsArr);
     return pokemonsArr;
 }
-//mapea cada pokemon del array recibido para obtener un array de objetos nuevo solo con las propiedades que . Se llama en la propia función que hace la petición para que devuelva ya los elementos mapeados.
-// const mapPokemons = async (pokemonsSinMapear) => {
-//     const pokemonsMapeados = [];
-//     pokemonSinMapear.forEach(poke => {
-//         const pokeObj = getPokemon(poke);
-//         pokemonsMapeados.push(pokeObj);
-//     })
-
-//     console.log(pokemonsMapeados);
-//     return pokemonsMapeados;
-    
-// }
-
 
 //crea el HTML necesario para pintar cada pokemon
 const createCards = (pokemons) => {
@@ -229,6 +215,7 @@ const likePokemons = (pokemons) => {
 const addToFavs = (favoriteName, pokemons) => {
     const favoritePokemon = pokemons.find(poke => poke.name === favoriteName);
     const favorites$$ = document.querySelector('.favorites-list');
+    const favsCamera$$ = document.querySelector('.pics-favs');
 
     const favoriteLi$$ = document.createElement('li');
     favoriteLi$$.classList.add('favorites-list__item');
@@ -236,11 +223,34 @@ const addToFavs = (favoriteName, pokemons) => {
     favoriteLi$$.innerHTML = `
         <img src="${favoritePokemon.image}" alt="${favoritePokemon.name}">
         <h3>${favoritePokemon.name}</h3>
+        <i class="favorites-list__item__delete">X</i>
     `
 
-    favoriteLi$$.addEventListener('click', (e) => {putFavPokeInPic(e)});
+    // //boton borrar foto de la favoritos
+    const deleteBtn$$ = favoriteLi$$.querySelector('.favorites-list__item__delete');
+    deleteBtn$$.addEventListener('click', (e) => {
+        e.target.parentElement.remove();
+        removeFromFavs(favoritePokemon.name);
+        //quitar corazón carta
+        const cards$$ = document.querySelectorAll('.card');
+        cards$$.forEach(crd => {
+            if(crd.querySelector('.card-front__name').textContent === favoritePokemon.name) {
+                crd.querySelector('.card-front__heart').classList.remove('card-front__heart--liked');
+            }
+        })
 
+        removeFromCamFavs(favoritePokemon.image);
+    })
+
+    // favoriteLi$$.addEventListener('click', (e) => {putFavPokeInPic(e)});
     favorites$$.appendChild(favoriteLi$$);
+
+    //añadir a la lista de favoritos de la cámara
+    const camFav$$ = document.createElement('img');
+    camFav$$.classList.add('pics-favs__item');
+    camFav$$.setAttribute('src', favoritePokemon.image);
+    camFav$$.addEventListener('click', putFavPokeInPic);
+    favsCamera$$.appendChild(camFav$$);
 }
 
 
@@ -255,6 +265,15 @@ const removeFromFavs = (notFavoriteAnymore) => {
     }
 }
 
+//eliminar de la lista en la función de cámara al eliminar de la lista favoritos
+const removeFromCamFavs = (imageUrl) => {
+    const camFavs$$ = document.querySelectorAll('.pics-favs__item');
+    camFavs$$.forEach(fav => {
+        if (fav.getAttribute('src') === imageUrl) {
+            fav.remove();
+        }
+    })
+}
 
 const favsMenuBehavior = () => {
     const headerHeart$$ = document.querySelector('.header-heart');
