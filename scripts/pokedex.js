@@ -53,7 +53,7 @@ const createCards = (pokemons) => {
     for (const pokemon of pokemons) {
         const pokemonCard$$ = document.createElement('div');
         pokemonCard$$.classList.add('card', 'lazy');
-
+        
         pokemonCard$$.innerHTML = `
             <div class="card-front">
                 <h2 class="card-front__name">${pokemon.name}</h2>
