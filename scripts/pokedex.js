@@ -204,7 +204,6 @@ const likePokemons = (pokemons) => {
             let thisPokemonName = heart.parentElement.children[0].textContent;
             addToFavs(thisPokemonName, pokemons);
         } else {
-            headerHeartNum$$.textContent = new Number(headerHeartNum$$.textContent) - 1;
             let thisPokemonName = heart.parentElement.children[0].textContent;
             removeFromFavs(thisPokemonName);
         }
