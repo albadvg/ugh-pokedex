@@ -1,12 +1,12 @@
-import {lazyLoad} from './lazyLoad.js';
-
-
+import {lazyLoad} from './lazyLoad.js'; 
 //ÍNDICE
 //1 - FETCH, PINTAR Y FILTRAR POKEMONS
 //2 - AÑADIR POKEMONS A LIKE
 //3 - SACAR FOTOS DE POKEMONS
 
-
+document.querySelectorAll('.data-simplebar').forEach(el => {
+    new SimpleBar(el);
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //FETCH, PINTAR Y FILTRAR POKEMONS
@@ -348,8 +348,10 @@ const takePic = () => {
         setTimeout(() => {
             flash$$.classList.remove('pics__flash--flashing');
         }, 300)
+
     })
 }
+
 
 
 const galleryBehavior = () => {

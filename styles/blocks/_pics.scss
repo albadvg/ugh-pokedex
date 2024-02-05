@@ -34,6 +34,7 @@
     &-favs {
         display: flex;
         overflow-x: auto;
+        overflow-y: hidden;
         width: 100%;
         margin: 20px 0;
 
@@ -49,6 +50,7 @@
         position: relative;
         border: 2px solid black;
         @include flex(space-around, center, 0, column);
+        background-color: #ede3cb;
 
         &-arrows {
             display: flex;
