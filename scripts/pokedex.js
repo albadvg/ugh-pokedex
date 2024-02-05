@@ -256,13 +256,16 @@ const addToFavs = (favoriteName, pokemons) => {
 
 const removeFromFavs = (notFavoriteAnymore) => {
     const favoritesLis$$ = document.querySelector('.favorites-list').children;
-
+    let imgSrc;
+     
     for(const li of favoritesLis$$) {
         if(li.querySelector('h3').textContent === notFavoriteAnymore) {
+            imgSrc = li.querySelector('img').src;
             li.remove();
             break;
         }
     }
+    removeFromCamFavs(imgSrc);
 }
 
 //eliminar de la lista en la función de cámara al eliminar de la lista favoritos
