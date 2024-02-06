@@ -309,10 +309,9 @@ const putFavPokeInPic = (e) => {
     const picture$$ = document.querySelector('.pics-pic-image')
     const favPokeImg$$ = e.target.nodeName === 'IMG' ? e.target : e.target.previousElementSibling ;
     const pokeInPic$$ = document.querySelector('.pics-pic-image__poke');
-    console.log(favPokeImg$$.src, 'src');
 
-        pokeInPic$$.setAttribute('src' , favPokeImg$$.src);
-        picture$$.appendChild(pokeInPic$$);
+    pokeInPic$$.setAttribute('src' , favPokeImg$$.src);
+    picture$$.appendChild(pokeInPic$$);
 
     pokeInPic$$.addEventListener('click', (e) => {removeFavPokeFromPic(e)});
        
@@ -321,7 +320,7 @@ const putFavPokeInPic = (e) => {
 
 //quitar pokemon de la foto al clicar
 const removeFavPokeFromPic = (e) => {
-    e.target.remove();
+    e.target.setAttribute('src', '');
 }
 
 

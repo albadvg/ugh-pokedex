@@ -107,8 +107,30 @@
 }
 
 @media screen and (max-width: 900px){
-    .pics--visible {
-        animation: openModalMobile .5s ease forwards;
+    .pics{
+
+        &-pic {
+            width: 240px;
+        }
+        
+        &--visible {
+            animation: openModalMobile .5s ease forwards;
+        }
+    }
+}
+
+
+@media screen and (max-width: 500px){
+    .pics{
+        
+        &-pic {
+            width: 240px;
+
+            &-arrows {
+                width: 130%;
+            }
+        }
+
     }
 }
 
